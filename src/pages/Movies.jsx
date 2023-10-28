@@ -1,28 +1,30 @@
 import { fetchSearchMovies } from 'Api';
 import toast, { Toaster } from 'react-hot-toast';
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import MoviesList from 'components/MoviesList/MoviesList';
+
+const ErrorMessage = lazy(() => import('components/ErrorMessage'));
+const Loader = lazy(() => import('components/Loader/Loader'));
+const MoviesList = lazy(() => import('components/MoviesList/MoviesList'));
+const FormSearch = lazy(() => import('components/FormSearch/FormSearch'));
 
 export default function Movies() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [page, setPage] = useState(1);
   const [gallerySearchMovies, setGallerySearchMovies] = useState([]);
-const[searchParams,setSearchParams]=useSearchParams();
-const query = searchParams.get('query')
-
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
 
   useEffect(() => {
-    if (query === null??query === '')
-    {return} 
+    if (query === null ?? query === '') {
+      return;
+    }
     async function fetchRequest() {
-      console.log(query);
       try {
-      
         setIsLoading(true);
         setError(false);
-        const responseMovies = await fetchSearchMovies(query);
+        const responseMovies = await fetchSearchMovies(query.toLowerCase(),page);
 
         if (responseMovies.length < 1) {
           toast('Nothing was found for this request', {
@@ -31,7 +33,7 @@ const query = searchParams.get('query')
         } else {
           toast.success('Successful request');
         }
-        setGallerySearchMovies(responseMovies)
+        setGallerySearchMovies(prev=>[...prev,...responseMovies]);
       } catch (error) {
         setError(true);
       } finally {
@@ -39,23 +41,33 @@ const query = searchParams.get('query')
       }
     }
     fetchRequest();
-  }, [query]);
+  }, [query,page]);
 
-
-
-const handleSubmit= e => {
-  e.preventDefault();
-  const form = e.currentTarget;
-  setSearchParams({ query: form.elements.query.value });
-  form.reset();
+  const handleSubmit = e => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    setSearchParams({ query: form.elements.query.value });
+    setGallerySearchMovies([])
+    setPage(1)
+    form.reset();
   };
+
+  const handleClick = () => {
+    setPage(prev=>prev+1)
+  };
+
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-      <input type="text" name='query'  />
-      <button type='submit'>Search</button>
-      </form>
-      <MoviesList response={gallerySearchMovies}/>
-    </div>
+    <>
+      <FormSearch handleSubmit={handleSubmit} />
+      <MoviesList response={gallerySearchMovies} />
+      <button type='button' onClick={handleClick}>Look for more</button>
+      {isLoading && <Loader />}
+      {error && (
+        <ErrorMessage>
+          Sorry, there is no information about this movies!
+        </ErrorMessage>
+      )}
+      <Toaster position="top-right" />
+    </>
   );
 }

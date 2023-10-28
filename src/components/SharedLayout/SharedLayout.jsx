@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { Link, Outlet } from 'react-router-dom';
 import { Container, Header } from './SharedLayout.styled';
+
+const Loader = lazy(()=>import('components/Loader/Loader'));
+
 
 const SharedLayout = () => {
   return (
@@ -14,7 +17,9 @@ const SharedLayout = () => {
       </nav>
         </Header>
         <main>
+        <Suspense fallback={<Loader/>}>
         <Outlet />
+        </Suspense>
         </main>
     </Container>
   )

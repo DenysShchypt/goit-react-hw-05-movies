@@ -1,6 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { fetchReviews } from 'Api';
+
+const ErrorMessage = lazy(() => import('components/ErrorMessage'));
+const Loader = lazy(() => import('components/Loader/Loader'));
 
 const Reviews = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,14 +31,22 @@ const Reviews = () => {
       }
     }
     fetchRequest();
-  }, []);
+  }, [movieId]);
 
   return (
+    <>
+      {isLoading && <Loader />}
+      {error && (
+        <ErrorMessage>
+          Sorry, there is no information!
+        </ErrorMessage>
+      )}
     <div>
-        <h3>Author: {author}</h3>
-        <p>Content: {content}</p>
-        <p>Created data: {created_at}</p>
+        <h3>{author&&`Author: ${author}`}</h3>
+        <p>{content&&`Content: ${content}`}</p>
+        <p>{created_at&&`Created data: ${created_at}`}</p>
     </div>
+    </>
   );
 }
 
