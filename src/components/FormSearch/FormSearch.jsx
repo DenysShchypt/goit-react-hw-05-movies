@@ -1,10 +1,11 @@
+import { SearchBtn, SearchForm, SearchInput } from "./FormSearch.styled"
 
 const FormSearch = ({handleSubmit}) => {
   return (
-    <form onSubmit={handleSubmit}>
-    <input type="text" name='query'  />
-    <button type='submit'>Search</button>
-    </form>
+    <SearchForm onSubmit={handleSubmit}>
+    <SearchInput type="text" name='query'  />
+    <SearchBtn type='submit'>Search</SearchBtn>
+    </SearchForm>
   )
 }
 

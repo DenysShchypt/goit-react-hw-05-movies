@@ -11,9 +11,9 @@ const fetchDetailsMovie = async (movieId) => {
     return response
 };
 
-const fetchSearchMovies = async (query,page) => {
+const fetchSearchMovies = async (query) => {
     const response = await axios.get(`/search/movie?query
-=${query}&include_adult=false&api_key=020a69ea7370c77aa06eca2a5130dadb&language=en-US&page=${page}`)
+=${query}&include_adult=false&api_key=020a69ea7370c77aa06eca2a5130dadb&language=en-US&page=1`)
     return response.data.results
 };
 

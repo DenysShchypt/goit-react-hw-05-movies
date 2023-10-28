@@ -11,20 +11,20 @@ const FormSearch = lazy(() => import('components/FormSearch/FormSearch'));
 export default function Movies() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [gallerySearchMovies, setGallerySearchMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query');
+  const query = searchParams.get('query')??'';
 
   useEffect(() => {
-    if (query === null ?? query === '') {
+    if (query === '') {
       return;
     }
     async function fetchRequest() {
       try {
         setIsLoading(true);
         setError(false);
-        const responseMovies = await fetchSearchMovies(query.toLowerCase(),page);
+        const responseMovies = await fetchSearchMovies(query.toLowerCase());
 
         if (responseMovies.length < 1) {
           toast('Nothing was found for this request', {
@@ -33,7 +33,7 @@ export default function Movies() {
         } else {
           toast.success('Successful request');
         }
-        setGallerySearchMovies(prev=>[...prev,...responseMovies]);
+        setGallerySearchMovies(responseMovies);
       } catch (error) {
         setError(true);
       } finally {
@@ -41,26 +41,32 @@ export default function Movies() {
       }
     }
     fetchRequest();
-  }, [query,page]);
+  }, [query]);
 
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
+    if (form.elements.query.value==='') {
+      toast('Please enter a valid query', {
+        duration: 6000,
+      });
+     return setSearchParams({});
+    }
     setSearchParams({ query: form.elements.query.value });
-    setGallerySearchMovies([])
-    setPage(1)
+    // setGallerySearchMovies([])
+    // setPage(1)
     form.reset();
   };
 
-  const handleClick = () => {
-    setPage(prev=>prev+1)
-  };
+  // const handleClick = () => {
+  //   setPage(prev=>prev+1)
+  // };
 
   return (
     <>
       <FormSearch handleSubmit={handleSubmit} />
       <MoviesList response={gallerySearchMovies} />
-      <button type='button' onClick={handleClick}>Look for more</button>
+      {/* <button type='button' onClick={handleClick}>Look for more</button> */}
       {isLoading && <Loader />}
       {error && (
         <ErrorMessage>

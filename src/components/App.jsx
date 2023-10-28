@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import { lazy } from 'react';
+import SharedLayout from './SharedLayout/SharedLayout';
 const Cast = lazy(()=>import('./Cast/Cast'));
-const SharedLayout = lazy(()=>import('./SharedLayout/SharedLayout'));
 const Reviews = lazy(()=>import('./Reviews/Reviews'));
-const MovieDetails =lazy(()=>import('pages/MovieDetails'));
+const MovieDetails =lazy(()=>import('pages/MovieDetails/MovieDetails'));
 const NotFound =lazy(()=>import('pages/NotFound'));
 const Movies = lazy(()=>import('pages/Movies'));
 const Home =lazy(()=>import('pages/Home'));

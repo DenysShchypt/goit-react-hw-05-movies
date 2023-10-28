@@ -1,7 +1,8 @@
-import React, { Suspense, lazy } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import React, { Suspense, lazy, useRef } from 'react';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchDetailsMovie } from 'Api';
+import { LinkBack, LinkCast, LinkReviews, MovieDescriptions, MovieInfo, MovieOriginalTitle, MoviePage, MoviePoster, MovieText, MovieTitle } from './MovieDetails.styled';
 
 const ErrorMessage = lazy(() => import('components/ErrorMessage'));
 const Loader = lazy(() => import('components/Loader/Loader'));
@@ -15,7 +16,8 @@ export default function MovieDetails() {
   const [overview, setOverview] = useState('');
   const [poster_path, setPoster_path] = useState('');
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
+  const backLinkHref=useRef(location.state?.from ?? '/movies');
+
 
   const { movieId } = useParams();
 
@@ -42,30 +44,32 @@ export default function MovieDetails() {
 
   return (
     <div>
-      <Link to={backLinkHref}>Turn back</Link>
+      <LinkBack to={backLinkHref.current}>Turn back</LinkBack>
       {isLoading && <Loader />}
-      <div>
-        <h2>{title}</h2>
-      <img
+      <MovieInfo>
+       
+      <MoviePoster
           src={
             poster_path
               ? `https://image.tmdb.org/t/p/w500/${poster_path}`
               : defaultImg
           }
-          width={250}
           alt="poster"
         />
-        <p>{original_title}</p>
-        <p>{overview}</p>
-      </div>
-      <ul>
+        <MovieDescriptions>
+         <MovieTitle>{title}</MovieTitle>
+        <MovieOriginalTitle>{original_title}</MovieOriginalTitle>
+        <MovieText>{overview}</MovieText>
+        </MovieDescriptions>
+      </MovieInfo>
+      <MoviePage>
         <li>
-          <Link to="cast">Cast</Link>
+          <LinkCast to="cast">Cast</LinkCast>
         </li>
         <li>
-          <Link to="reviews">Reviews</Link>
+          <LinkReviews to="reviews">Reviews</LinkReviews>
         </li>
-      </ul>
+      </MoviePage>
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>

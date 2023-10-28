@@ -12,6 +12,7 @@ const theme = {
     blue: 'blue',
     white: 'white',
     black: 'black',
+    yellow: 'yellow',
     error: 'red',
   },
   spacing: value => `${value * 2}px`,

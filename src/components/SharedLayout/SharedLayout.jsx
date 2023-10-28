@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react'
-import { Link, Outlet } from 'react-router-dom';
-import { Container, Header } from './SharedLayout.styled';
+import { Outlet } from 'react-router-dom';
+import { Container, Header, LinkNav } from './SharedLayout.styled';
 
 const Loader = lazy(()=>import('components/Loader/Loader'));
 
@@ -10,10 +10,10 @@ const SharedLayout = () => {
     <Container>
         <Header>
         <nav>
-        <Link to="/">
+        <LinkNav to="/">
           Home
-        </Link>
-        <Link to="/movies">Movies</Link>
+        </LinkNav>
+        <LinkNav to="/movies">Movies</LinkNav>
       </nav>
         </Header>
         <main>

@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { lazy, useEffect, useState } from 'react';
 import { fetchReviews } from 'Api';
+import { ContentAuthor, CreatedAuthor, ReviewsAuthor, ReviewsBox } from './Reviews.styled';
 
 const ErrorMessage = lazy(() => import('components/ErrorMessage'));
 const Loader = lazy(() => import('components/Loader/Loader'));
@@ -41,11 +42,11 @@ const Reviews = () => {
           Sorry, there is no information!
         </ErrorMessage>
       )}
-    <div>
-        <h3>{author&&`Author: ${author}`}</h3>
-        <p>{content&&`Content: ${content}`}</p>
-        <p>{created_at&&`Created data: ${created_at}`}</p>
-    </div>
+    <ReviewsBox>
+        <ReviewsAuthor>{author&&`Author: ${author}`}</ReviewsAuthor>
+        <ContentAuthor>{content&&`Content: ${content}`}</ContentAuthor>
+        <CreatedAuthor>{created_at&&`Created data: ${created_at}`}</CreatedAuthor>
+    </ReviewsBox>
     </>
   );
 }
