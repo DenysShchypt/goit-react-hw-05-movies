@@ -25,8 +25,8 @@ cursor: pointer;
 `;
 
 export const ImgMovie = styled.img`
+display: block;
 height: 20em;
-width: 100%;
 float: left;
 background-size: cover;
 box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
@@ -36,8 +36,8 @@ box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
 export const DescriptionMovie = styled.div`
 display: flex;
 flex-wrap: wrap;
+align-items: flex-end;
 justify-content: center;
-margin-top:auto;
 padding:6px 12px;
 `;
 

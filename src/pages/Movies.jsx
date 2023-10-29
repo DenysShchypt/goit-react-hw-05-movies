@@ -11,7 +11,6 @@ const FormSearch = lazy(() => import('components/FormSearch/FormSearch'));
 export default function Movies() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  // const [page, setPage] = useState(1);
   const [gallerySearchMovies, setGallerySearchMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
@@ -52,20 +51,13 @@ export default function Movies() {
       return setSearchParams({});
     }
     setSearchParams({ query: form.elements.query.value });
-    // setGallerySearchMovies([])
-    // setPage(1)
     form.reset();
   };
-
-  // const handleClick = () => {
-  //   setPage(prev=>prev+1)
-  // };
 
   return (
     <>
       <FormSearch handleSubmit={handleSubmit} />
       <MoviesList response={gallerySearchMovies} />
-      {/* <button type='button' onClick={handleClick}>Look for more</button> */}
       {isLoading && <Loader />}
       {error && (
         <ErrorMessage>

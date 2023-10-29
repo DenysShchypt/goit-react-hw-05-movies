@@ -24,7 +24,7 @@ gap: 20px;
 
 export const LinkNav = styled(NavLink)`
   padding: 10px 40px;
-  border-radius: 4px;
+  border-radius: ${p=>p.theme.spacing(2)};
   text-decoration: none;
   color: ${p=>p.theme.colors.white};
   background-color: ${p=>p.theme.colors.grey};

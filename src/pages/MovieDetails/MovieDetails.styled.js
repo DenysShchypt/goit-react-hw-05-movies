@@ -7,7 +7,7 @@ width: 200px;
 padding: 10px 30px;
 margin-right: auto;
 margin-bottom: 20px;
-border-radius: 4px;
+border-radius: ${p=>p.theme.spacing(2)};
 text-decoration: none;
 color: ${p => p.theme.colors.black};
 background-color: ${p => p.theme.colors.grey};
@@ -67,7 +67,7 @@ letter-spacing: 0.02em;
 
 export const LinkCast = styled(NavLink)`
   padding: 10px 40px;
-  border-radius: 4px;
+  border-radius: ${p=>p.theme.spacing(2)};
   text-decoration: none;
   color: ${p=>p.theme.colors.white};
   background-color: ${p=>p.theme.colors.grey};
@@ -81,7 +81,7 @@ export const LinkCast = styled(NavLink)`
 
 export const LinkReviews = styled(NavLink)`
   padding: 10px 40px;
-  border-radius: 4px;
+  border-radius: ${p=>p.theme.spacing(2)};
   text-decoration: none;
   color: ${p=>p.theme.colors.white};
   background-color: ${p=>p.theme.colors.grey};

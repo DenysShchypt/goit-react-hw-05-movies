@@ -10,15 +10,14 @@ text-align: center;
 `;
 
 export const CharacterItem = styled.li`
-flex-grow:1;
 width: calc(100% / 6);
 text-decoration: none;
 text-align: start;
 `;
 
 export const CharacterImg = styled.img`
-height: 15em;
-width: 100%;
+display: block;
+height: 14em;
 float: left;
 background-size: cover;
 box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
