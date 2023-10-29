@@ -18,6 +18,7 @@ padding-left: 4px;
 padding-right: 4px;
 font-weight: 600;
 `;
+
 export const SearchBtn = styled.button`
   padding: 10px 40px;
   border-radius: 4px;

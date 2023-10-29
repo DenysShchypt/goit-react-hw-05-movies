@@ -2,11 +2,23 @@ import React, { Suspense, lazy, useRef } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchDetailsMovie } from 'Api';
-import { LinkBack, LinkCast, LinkReviews, MovieDescriptions, MovieInfo, MovieOriginalTitle, MoviePage, MoviePoster, MovieText, MovieTitle } from './MovieDetails.styled';
+import {
+  LinkBack,
+  LinkCast,
+  LinkReviews,
+  MovieDescriptions,
+  MovieInfo,
+  MovieOriginalTitle,
+  MoviePage,
+  MoviePoster,
+  MovieText,
+  MovieTitle,
+} from './MovieDetails.styled';
 
 const ErrorMessage = lazy(() => import('components/ErrorMessage'));
 const Loader = lazy(() => import('components/Loader/Loader'));
-const defaultImg ='https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
+const defaultImg =
+  'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
 export default function MovieDetails() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,9 +28,7 @@ export default function MovieDetails() {
   const [overview, setOverview] = useState('');
   const [poster_path, setPoster_path] = useState('');
   const location = useLocation();
-  const backLinkHref=useRef(location.state?.from ?? '/movies');
-
-
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -43,12 +53,11 @@ export default function MovieDetails() {
   }, [movieId]);
 
   return (
-    <div>
+    <>
       <LinkBack to={backLinkHref.current}>Turn back</LinkBack>
       {isLoading && <Loader />}
       <MovieInfo>
-       
-      <MoviePoster
+        <MoviePoster
           src={
             poster_path
               ? `https://image.tmdb.org/t/p/w500/${poster_path}`
@@ -57,9 +66,9 @@ export default function MovieDetails() {
           alt="poster"
         />
         <MovieDescriptions>
-         <MovieTitle>{title}</MovieTitle>
-        <MovieOriginalTitle>{original_title}</MovieOriginalTitle>
-        <MovieText>{overview}</MovieText>
+          <MovieTitle>{title}</MovieTitle>
+          <MovieOriginalTitle>{original_title}</MovieOriginalTitle>
+          <MovieText>{overview}</MovieText>
         </MovieDescriptions>
       </MovieInfo>
       <MoviePage>
@@ -78,6 +87,6 @@ export default function MovieDetails() {
           Sorry, there is no information about this movie!
         </ErrorMessage>
       )}
-    </div>
+    </>
   );
 }

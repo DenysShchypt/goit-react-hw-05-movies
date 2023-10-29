@@ -20,14 +20,14 @@ const theme = {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter 
-    basename="/goit-react-hw-05-movies"
+    <BrowserRouter
+      basename="/goit-react-hw-05-movies"
     >
-       <ThemeProvider
+      <ThemeProvider
         theme={theme}>
-    <App />
-    <GlobalStyle />
-    </ThemeProvider>
+        <App />
+        <GlobalStyle />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

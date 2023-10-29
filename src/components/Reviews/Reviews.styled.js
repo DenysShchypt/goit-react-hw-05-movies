@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const ReviewsBox = styled.div`
 padding:15px;
 `;
+
 export const ReviewsAuthor = styled.h3`
 margin-top: 8px;
 margin-bottom: 2px;
@@ -20,6 +21,7 @@ font-size: 16px;
 line-height: 1.5;
 letter-spacing: 0.02em;
 `;
+
 export const CreatedAuthor = styled.p`
 margin-top: 10px;
 font-weight: 500;

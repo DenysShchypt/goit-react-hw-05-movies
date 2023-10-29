@@ -1,7 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { lazy, useEffect, useState } from 'react';
 import { fetchReviews } from 'Api';
-import { ContentAuthor, CreatedAuthor, ReviewsAuthor, ReviewsBox } from './Reviews.styled';
+import {
+  ContentAuthor,
+  CreatedAuthor,
+  ReviewsAuthor,
+  ReviewsBox,
+} from './Reviews.styled';
 
 const ErrorMessage = lazy(() => import('components/ErrorMessage'));
 const Loader = lazy(() => import('components/Loader/Loader'));
@@ -21,10 +26,10 @@ const Reviews = () => {
         setIsLoading(true);
         setError(false);
         const detailsMovie = await fetchReviews(movieId);
-        const{author,content,created_at}=detailsMovie
+        const { author, content, created_at } = detailsMovie;
         setAuthor(author);
         setContent(content);
-        setCreated_at(created_at);
+        setCreated_at(created_at.slice(0, 10));
       } catch (error) {
         setError(true);
       } finally {
@@ -37,18 +42,16 @@ const Reviews = () => {
   return (
     <>
       {isLoading && <Loader />}
-      {error && (
-        <ErrorMessage>
-          Sorry, there is no information!
-        </ErrorMessage>
-      )}
-    <ReviewsBox>
-        <ReviewsAuthor>{author&&`Author: ${author}`}</ReviewsAuthor>
-        <ContentAuthor>{content&&`Content: ${content}`}</ContentAuthor>
-        <CreatedAuthor>{created_at&&`Created data: ${created_at}`}</CreatedAuthor>
-    </ReviewsBox>
+      {error && <ErrorMessage>Sorry, there is no information!</ErrorMessage>}
+      <ReviewsBox>
+        <ReviewsAuthor>{author && `Author: ${author}`}</ReviewsAuthor>
+        <ContentAuthor>{content && `Content: ${content}`}</ContentAuthor>
+        <CreatedAuthor>
+          {created_at && `Created data: ${created_at}`}
+        </CreatedAuthor>
+      </ReviewsBox>
     </>
   );
-}
+};
 
-export default Reviews
+export default Reviews;

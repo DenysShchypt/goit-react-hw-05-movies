@@ -14,7 +14,7 @@ export default function Movies() {
   // const [page, setPage] = useState(1);
   const [gallerySearchMovies, setGallerySearchMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query')??'';
+  const query = searchParams.get('query') ?? '';
 
   useEffect(() => {
     if (query === '') {
@@ -25,7 +25,6 @@ export default function Movies() {
         setIsLoading(true);
         setError(false);
         const responseMovies = await fetchSearchMovies(query.toLowerCase());
-
         if (responseMovies.length < 1) {
           toast('Nothing was found for this request', {
             duration: 6000,
@@ -46,11 +45,11 @@ export default function Movies() {
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
-    if (form.elements.query.value==='') {
+    if (form.elements.query.value === '') {
       toast('Please enter a valid query', {
         duration: 6000,
       });
-     return setSearchParams({});
+      return setSearchParams({});
     }
     setSearchParams({ query: form.elements.query.value });
     // setGallerySearchMovies([])

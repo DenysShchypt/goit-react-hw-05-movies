@@ -1,6 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { lazy, useEffect, useState } from 'react';
 import { fetchCredits } from 'Api';
+import {
+  CharacterImg,
+  CharacterItem,
+  CharactersBox,
+  TitleCharacter,
+} from './Cast.styled';
 
 const ErrorMessage = lazy(() => import('components/ErrorMessage'));
 const Loader = lazy(() => import('components/Loader/Loader'));
@@ -11,7 +17,6 @@ const Cast = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [galleryCharacters, setGalleryCharacters] = useState([]);
-
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -38,22 +43,21 @@ const Cast = () => {
           Sorry, there is no information about these characters!
         </ErrorMessage>
       )}
-      <ul>
+      <CharactersBox>
         {galleryCharacters.map(character => (
-          <li key={character.cast_id}>
-            <img
+          <CharacterItem key={character.cast_id}>
+            <CharacterImg
               src={
                 character.profile_path
                   ? `https://image.tmdb.org/t/p/w500/${character.profile_path}`
                   : defaultImg
               }
-              width={100}
               alt="poster"
             />
-            <h3>Name character : {character.character} </h3>
-          </li>
+            <TitleCharacter>Name: {character.character||'No name'} </TitleCharacter>
+          </CharacterItem>
         ))}
-      </ul>
+      </CharactersBox>
     </>
   );
 };
