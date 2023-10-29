@@ -26,6 +26,7 @@ cursor: pointer;
 
 export const ImgMovie = styled.img`
 display: block;
+width: 20em;
 height: 20em;
 float: left;
 background-size: cover;
